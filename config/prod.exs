@@ -11,7 +11,8 @@ use Mix.Config
 # before starting your production server.
 config :smolchat, SmolchatWeb.Endpoint,
   load_from_system_env: true,
-  url: [scheme: "https", host: "smolchat.herokuapp.com", port: 443],
+  http: [port: {:system, "PORT"}],
+  url: [scheme: "https", host: "infinite-badlands-87317.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
