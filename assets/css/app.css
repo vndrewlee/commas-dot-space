@@ -17,7 +17,8 @@ textarea {
 #msg-list {
   overflow-y: scroll;
   list-style: none;
+  width: 100%;
   /* height: 200px; */
-  max-height: 75vh;
+  max-height: 50vh;
   /* bottom: 200px; */
 }
