@@ -7,3 +7,17 @@ select,
 textarea {
   font-size: 16px;
 }
+
+.footer {
+  /* position: fixed; */
+  /* min-height: 100px; */
+  /* bottom: 0; */
+}
+
+#msg-list {
+  overflow-y: scroll;
+  list-style: none;
+  /* height: 200px; */
+  max-height: 75vh;
+  /* bottom: 200px; */
+}
