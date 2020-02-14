@@ -20,16 +20,28 @@ var channel = socket.channel("room:lobby", {}); // connect to chat "room"
 
 channel.on("shout", function(payload) {
   // listen to the 'shout' event
-  var li = document.createElement("li"); // creaet new list item DOM element
+  let msg = document.createElement("p");
+  msg.style.position = "absolute";
+  msg.style.size = "5rem";
+  msg.style.whiteSpace = "nowrap";
+  msg.style.left = "200%";
+  msg.style.top = "50%";
+  // msg.style.top = Math.trunc((Math.random() * 0.6 + 0.2) * 100) + "%";
+  // var li = document.createElement("li"); // creaet new list item DOM element
   var name = payload.name || "guest"; // get name from payload or set default
-  li.innerHTML = "<b>" + name + "</b>: " + payload.message;
-  ul.appendChild(li); // append to list
-  li.scrollIntoView();
+  // msg.innerHTML = "<b>" + name + "</b>: " + payload.message;
+  msg.innerHTML = payload.message;
+
+  ul.appendChild(msg); // append to list
+  msg.onanimationend = () => msg.remove();
+  msg.classList.add("flyer");
+
+  // li.scrollIntoView();
 });
 
 channel.join(); // join the channel.
 
-var ul = document.getElementById("msg-list"); // list of messages.
+var ul = document.getElementById("msg-canvas"); // list of messages.
 var name = document.getElementById("name"); // name of message sender
 var msg = document.getElementById("msg"); // message input field
 
