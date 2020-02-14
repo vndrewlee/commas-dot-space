@@ -1,0 +1,31 @@
+<!-- The list of messages will appear here: -->
+<div class="row">
+  <h2><%= @id %></h2>
+</div>
+
+<div class="row">
+  <div style="border:solid 1px lightgrey;" id="msg-canvas"></div>
+</div>
+
+<div class="footer">
+<br/>
+  <div class="row">
+    <div class="col-xs-12">
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        placeholder="Your Name"
+        autofocus
+      />
+    </div>
+    <div class="col-xs-9">
+      <input
+        type="text"
+        id="msg"
+        class="form-control"
+        placeholder="Your Message"
+      />
+    </div>
+  </div>
+</div>

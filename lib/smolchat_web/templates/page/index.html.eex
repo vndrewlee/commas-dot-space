@@ -1,30 +1,40 @@
+<div>
+  <h2>Lobby</h2>
+  <br/>
+  <p>Enter a roomname to get started</p>
+</div>
+
 <!-- The list of messages will appear here: -->
 <div class="row">
-  <h2>Room: Lobby</h2>
-</div>
-
-<div class="row">
-  <ul id="msg-list"></ul>
-</div>
-
-<div class="footer">
-  <div class="row">
-    <div class="col-xs-12">
-      <input
-        type="text"
-        id="name"
-        class="form-control"
-        placeholder="Your Name"
-        autofocus
-      />
-    </div>
-    <div class="col-xs-9">
-      <input
-        type="text"
-        id="msg"
-        class="form-control"
-        placeholder="Your Message"
-      />
-    </div>
+  <div class="col-xs-12">
+    <input
+      type="text"
+      id="roomForm"
+      class="form-control"
+      placeholder="Room Name"
+      autofocus
+    />
+  </div>
+  <div class="col-xs-9">
+    <button type="button" onclick="goToRoom()">Go</button>
   </div>
 </div>
+
+<div class="footer"></div>
+
+<script>
+  let roomForm = document.getElementById("roomForm");
+
+  function goToRoom() {
+    let roomName = roomForm.value;
+    let roomURL = "/" + roomName;
+    window.location.href = roomURL;
+  }
+
+  // "listen" for the [Enter] keypress event to send a message:
+  roomForm.addEventListener("keypress", function(event) {
+    if (event.keyCode == 13 && roomForm.value.length > 0) {
+      goToRoom();
+    }
+  });
+</script>
