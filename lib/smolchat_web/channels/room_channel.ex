@@ -30,11 +30,11 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_info(:after_join, socket) do
-    Smolchat.Message.get_messages()
-    |> Enum.each(fn msg -> push(socket, "shout", %{
-        name: msg.name,
-        message: msg.message,
-      }) end)
+    # Smolchat.Message.get_messages()
+    # |> Enum.each(fn msg -> push(socket, "shout", %{
+    #     name: msg.name,
+    #     message: msg.message,
+    #   }) end)
     {:noreply, socket} # :noreply
   end
 
