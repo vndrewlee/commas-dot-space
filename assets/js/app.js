@@ -11,12 +11,11 @@ import css from "../css/app.css";
 //
 import "phoenix_html";
 
-// Import local files
-//
-// Local files can be imported directly using relative paths, for example:
 import socket from "./socket";
 
-var channel = socket.channel("room:lobby", {}); // connect to chat "room"
+let subtopic = location.href.split("/").slice(-1)[0];
+let channelName = "room:" + subtopic;
+let channel = socket.channel(channelName);
 
 channel.on("shout", function(payload) {
   // listen to the 'shout' event
@@ -39,7 +38,14 @@ channel.on("shout", function(payload) {
   // li.scrollIntoView();
 });
 
-channel.join(); // join the channel.
+channel
+  .join()
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp);
+  })
+  .receive("error", resp => {
+    console.log("Unable to join", resp);
+  });
 
 var ul = document.getElementById("msg-canvas"); // list of messages.
 var name = document.getElementById("name"); // name of message sender
