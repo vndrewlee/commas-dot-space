@@ -2,7 +2,7 @@ defmodule SmolchatWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:lobby", SmolchatWeb.RoomChannel
+  channel "room:*", SmolchatWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

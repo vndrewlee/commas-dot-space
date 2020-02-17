@@ -1,7 +1,7 @@
 defmodule SmolchatWeb.RoomChannel do
   use SmolchatWeb, :channel
 
-  def join("room:lobby", payload, socket) do
+  def join("room:" <> private_room_id, payload, socket) do
     if authorized?(payload) do
       send(self(), :after_join)
       {:ok, socket}
