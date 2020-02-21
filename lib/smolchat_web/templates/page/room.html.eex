@@ -4,7 +4,11 @@
 </div>
 
 <div class="row">
-  <div style="border:solid 1px lightgrey;" id="msg-canvas"></div>
+  <div class="col-9" style="border:solid 1px lightgrey;" id="msg-canvas"></div>
+  <div class="col-3">
+  <h3>Users</h3>
+  <ul id="presence-panel"></ul>
+  </div>
 </div>
 
 <div class="footer">

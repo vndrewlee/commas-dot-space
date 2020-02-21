@@ -1,6 +1,8 @@
-<div>
-  <h2>Lobby</h2>
-  <br/>
+<div class="container">
+
+<div class="phx-hero">
+  <%# <h2>Lobby</h2>
+  <br/> %>
   <p>Enter a roomname to get started</p>
 </div>
 
@@ -38,3 +40,5 @@
     }
   });
 </script>
+
+</div>
