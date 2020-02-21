@@ -1,41 +1,41 @@
 defmodule SmolchatWeb.RoomChannel do
   use SmolchatWeb, :channel
+  alias SmolchatWeb.Presence
 
-  def join("room:" <> private_room_id, payload, socket) do
-    if authorized?(payload) do
-      send(self(), :after_join)
-      {:ok, socket}
-    else
-      {:error, %{reason: "unauthorized"}}
-    end
+  def join("room:" <> _private_room_id, _payload, socket) do
+    send(self(), :after_join)
+    {:ok, socket}
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
   def handle_in("ping", payload, socket) do
     {:reply, {:ok, payload}, socket}
   end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (room:lobby).
   def handle_in("shout", payload, socket) do
-    Smolchat.Message.changeset(%Smolchat.Message{}, payload) |> Smolchat.Repo.insert  
     broadcast socket, "shout", payload
     {:noreply, socket}
   end
 
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
+  def handle_in("newname", payload, socket) do
+
+    Presence.update(
+      socket,
+      socket.assigns.user_id,
+      &(%{&1 | displayname: payload["name"]})
+    )
+
+    {:noreply, socket} 
   end
 
   def handle_info(:after_join, socket) do
-    # Smolchat.Message.get_messages()
-    # |> Enum.each(fn msg -> push(socket, "shout", %{
-    #     name: msg.name,
-    #     message: msg.message,
-    #   }) end)
-    {:noreply, socket} # :noreply
+    push(socket, "presence_state", Presence.list(socket))
+
+    {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
+      online_at: inspect(System.system_time(:second)),
+      displayname: "anonymous"
+    })
+
+    {:noreply, socket}
   end
 
 end

@@ -26,8 +26,8 @@ textarea {
 }
 
 .flyer {
-  animation: flyby 10s;
-  animation-timing-function: ease-in;
+  animation: flyby 30s;
+  animation-timing-function: linear;
   position: absolute;
 }
 

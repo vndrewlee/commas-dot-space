@@ -1,24 +1,34 @@
-// We need to import the CSS so that webpack will load it.
-// The MiniCssExtractPlugin is used to separate it out into
-// its own CSS file.
+// import css for webpack
 import css from "../css/app.css";
 
-// webpack automatically bundles all modules in your
-// entry points. Those entry points can be configured
-// in "webpack.config.js".
-//
-// Import dependencies
-//
 import "phoenix_html";
+import { Socket, Presence } from "phoenix";
 
-import socket from "./socket";
+var ul = document.getElementById("msg-canvas"); // list of messages.
+var name = document.getElementById("name"); // name of message sender
+var msg = document.getElementById("msg"); // message input field
+var nameField = document.getElementById("name"); // message input field
+let presencePanel = document.getElementById("presence-panel");
 
-let subtopic = location.href.split("/").slice(-1)[0];
+let socket = new Socket("/socket", {
+  params: { user_id: window.location.search.split("=")[1] }
+});
+
+socket.connect();
+
+let subtopic = location.href
+  .split("/")
+  .slice(-1)[0]
+  .split("?")
+  .slice(0)[0];
 let channelName = "room:" + subtopic;
 let channel = socket.channel(channelName);
 
+channel.join();
+
+let presence = new Presence(channel);
+
 channel.on("shout", function(payload) {
-  // listen to the 'shout' event
   let msg = document.createElement("p");
   msg.style.position = "absolute";
   msg.style.size = "5rem";
@@ -26,40 +36,36 @@ channel.on("shout", function(payload) {
   msg.style.left = "200%";
   msg.style.top = "50%";
   // msg.style.top = Math.trunc((Math.random() * 0.6 + 0.2) * 100) + "%";
-  // var li = document.createElement("li"); // creaet new list item DOM element
-  var name = payload.name || "guest"; // get name from payload or set default
-  // msg.innerHTML = "<b>" + name + "</b>: " + payload.message;
+  // var name = payload.name || "guest"; // get name from payload or set default
   msg.innerHTML = payload.message;
 
   ul.appendChild(msg); // append to list
   msg.onanimationend = () => msg.remove();
   msg.classList.add("flyer");
-
-  // li.scrollIntoView();
 });
 
-channel
-  .join()
-  .receive("ok", resp => {
-    console.log("Joined successfully", resp);
-  })
-  .receive("error", resp => {
-    console.log("Unable to join", resp);
+presence.onSync(() => {
+  let response = "";
+
+  presence.list((id, { metas }) => {
+    let displayNames = metas.map(x => x.displayname);
+    displayNames.sort();
+    response = "<li>" + displayNames.join("</li><li>") + "</li>";
   });
 
-var ul = document.getElementById("msg-canvas"); // list of messages.
-var name = document.getElementById("name"); // name of message sender
-var msg = document.getElementById("msg"); // message input field
+  presencePanel.innerHTML = response;
+});
 
-// "listen" for the [Enter] keypress event to send a message:
-msg.addEventListener("keypress", function(event) {
-  if (event.keyCode == 13 && msg.value.length > 0) {
-    // don't sent empty msg.
-    channel.push("shout", {
-      // send the message to the server
-      name: name.value, // get value of "name" of person sending the message
-      message: msg.value // get message text (value) from msg input field.
-    });
-    msg.value = ""; // reset the message input field for next message.
-  }
+msg.addEventListener("keyup", () => {
+  channel.push("shout", {
+    name: name.value,
+    message: msg.value
+  });
+
+  msg.value = "";
+});
+
+nameField.addEventListener("keyup", () => {
+  let newName = nameField.value.length > 0 ? name.value : "anonymous";
+  channel.push("newname", { name: newName });
 });
