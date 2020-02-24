@@ -4,7 +4,10 @@ import css from "../css/app.css";
 import "phoenix_html";
 import { Socket, Presence } from "phoenix";
 
-var ul = document.getElementById("msg-canvas"); // list of messages.
+import { interpolateTurbo } from "d3-scale-chromatic";
+import { color } from "d3-color";
+
+var messageCanvas = document.getElementById("msg-canvas"); // list of messages.
 var name = document.getElementById("name"); // name of message sender
 var msg = document.getElementById("msg"); // message input field
 var nameField = document.getElementById("name"); // message input field
@@ -30,16 +33,15 @@ let presence = new Presence(channel);
 
 channel.on("shout", function(payload) {
   let msg = document.createElement("p");
-  msg.style.position = "absolute";
-  msg.style.size = "5rem";
-  msg.style.whiteSpace = "nowrap";
-  msg.style.left = "200%";
-  msg.style.top = "50%";
-  // msg.style.top = Math.trunc((Math.random() * 0.6 + 0.2) * 100) + "%";
-  // var name = payload.name || "guest"; // get name from payload or set default
+  msg.classList.add("message");
+
+  let c = color(interpolateTurbo(payload.color_id));
+  c.opacity = 0.3;
+  msg.style.backgroundColor = c;
   msg.innerHTML = payload.message;
 
-  ul.appendChild(msg); // append to list
+  messageCanvas.appendChild(msg);
+
   msg.onanimationend = () => msg.remove();
   msg.classList.add("flyer");
 });
@@ -48,9 +50,20 @@ presence.onSync(() => {
   let response = "";
 
   presence.list((id, { metas }) => {
-    let displayNames = metas.map(x => x.displayname);
-    displayNames.sort();
-    response = "<li>" + displayNames.join("</li><li>") + "</li>";
+    let listItems = metas.map(meta => {
+      let c = color(interpolateTurbo(meta.color_id));
+      c.opacity = 0.3;
+      let listItemComponents = [
+        '<li style="background-color:',
+        c,
+        '">',
+        meta.displayname,
+        "</li>"
+      ];
+      return listItemComponents.join("");
+    });
+
+    response = listItems.join("");
   });
 
   presencePanel.innerHTML = response;

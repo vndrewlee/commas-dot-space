@@ -8,10 +8,13 @@ textarea {
   font-size: 16px;
 }
 
-.footer {
-  /* position: fixed; */
-  /* min-height: 100px; */
-  /* bottom: 0; */
+.message {
+  position: absolute;
+  font-size: 2rem;
+  white-space: nowrap;
+  left: 200%;
+  top: 50%;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 #msg-canvas {
@@ -19,14 +22,12 @@ textarea {
   list-style: none;
   overflow: hidden;
   width: 100%;
-  /* height: 200px; */
   height: 50vh;
-  /* bottom: 200px; */
   position: relative;
 }
 
 .flyer {
-  animation: flyby 30s;
+  animation: flyby 20s;
   animation-timing-function: linear;
   position: absolute;
 }

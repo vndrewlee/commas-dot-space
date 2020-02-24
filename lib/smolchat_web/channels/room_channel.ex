@@ -12,7 +12,7 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+    broadcast socket, "shout", Map.put(payload, :color_id, socket.assigns.color_id)
     {:noreply, socket}
   end
 
@@ -32,7 +32,8 @@ defmodule SmolchatWeb.RoomChannel do
 
     {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
       online_at: inspect(System.system_time(:second)),
-      displayname: "anonymous"
+      displayname: "anonymous",
+      color_id: socket.assigns.color_id
     })
 
     {:noreply, socket}
