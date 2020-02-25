@@ -10,7 +10,7 @@ defmodule Smolchat.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      Smolchat.Repo,
+      # Smolchat.Repo,
       # Start the endpoint when the application starts
       SmolchatWeb.Endpoint,
       # Starts a worker by calling: Smolchat.Worker.start_link(arg)
