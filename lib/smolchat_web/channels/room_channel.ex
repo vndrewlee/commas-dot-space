@@ -12,7 +12,11 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", Map.put(payload, :color_id, socket.assigns.color_id)
+    hydrated_payload = Map.put(payload, :color_id, socket.assigns.color_id)
+      |> Map.replace("message", String.slice(payload["message"],0..0))
+
+    broadcast socket, "shout", hydrated_payload
+
     {:noreply, socket}
   end
 
