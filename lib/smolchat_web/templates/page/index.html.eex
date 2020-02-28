@@ -29,7 +29,7 @@
 
   function goToRoom() {
     let roomName = roomForm.value;
-    let roomURL = "/" + roomName;
+    let roomURL = "/rooms/" + roomName;
     window.location.href = roomURL;
   }
 
