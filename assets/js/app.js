@@ -67,14 +67,16 @@ presence.onSync(() => {
   presencePanel.innerHTML = response;
 });
 
-msg.addEventListener("keyup", () => {
-  channel.push("shout", {
-    name: name.value,
-    message: msg.value
-  });
+msg.addEventListener("keydown", shoutMessage);
 
-  msg.value = "";
-});
+function shoutMessage() {
+  if (msg.value.length > 0) {
+    channel.push("shout", { name: name.value, message: msg.value });
+    msg.value = "";
+  } else {
+    setTimeout(shoutMessage, 1);
+  }
+}
 
 nameField.addEventListener("keyup", () => {
   let newName = nameField.value.length > 0 ? name.value : "anonymous";
