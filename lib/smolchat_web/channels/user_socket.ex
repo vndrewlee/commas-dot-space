@@ -3,9 +3,8 @@ defmodule SmolchatWeb.UserSocket do
 
   channel "room:*", SmolchatWeb.RoomChannel
 
-  # See `Phoenix.Token` for performing token verification on connect.
-  def connect(params, socket, _connect_info) do
-    {:ok, assign(socket, user_id: params["user_id"], color_id: :rand.uniform())}
+  def connect(_params, socket) do
+    {:ok, assign(socket, user_id: nil, color_id: :rand.uniform())}
   end
 
   def id(_socket), do: nil # Returning `nil` makes this socket anonymous. 

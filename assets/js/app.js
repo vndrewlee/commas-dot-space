@@ -13,9 +13,7 @@ var msg = document.getElementById("msg"); // message input field
 var nameField = document.getElementById("name"); // message input field
 let presencePanel = document.getElementById("presence-panel");
 
-let socket = new Socket("/socket", {
-  params: { user_id: window.location.search.split("=")[1] }
-});
+let socket = new Socket("/socket");
 
 socket.connect();
 
