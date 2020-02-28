@@ -37,7 +37,7 @@ channel.on("shout", function(payload) {
   c.opacity = 0.3;
   msg.style.backgroundColor = c;
   msg.innerHTML = payload.message;
-
+  msg.style.top = payload.color_id * 5 + 45 + "%";
   messageCanvas.appendChild(msg);
 
   msg.onanimationend = () => msg.remove();

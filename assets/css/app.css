@@ -27,16 +27,16 @@ textarea {
 }
 
 .flyer {
-  animation: flyby 20s;
+  animation: flyby 8s;
   animation-timing-function: linear;
   position: absolute;
 }
 
 @keyframes flyby {
   from {
-    left: 99%;
+    left: 100%;
   }
   to {
-    left: -100%;
+    left: -5%;
   }
 }
