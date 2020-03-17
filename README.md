@@ -1,20 +1,38 @@
-# Smolchat
+# Bad Scrabble
 
-To start your Phoenix server:
+- [ ] a grid of single character cells
+- [ ] tiling grids on a larger plane
+- [ ] authorship colors
+- [ ] heatmap of editing
+- [ ] user management
+- [ ] indication of client connected
+- [ ] indicate users presence on a tile
+  - https://work.stevegrossi.com/2016/07/11/building-a-chat-app-with-elixir-and-phoenix-presence/
+- [ ] front end styling
+  - copy html css style for this https://github.com/chrismccord/phoenix_chat_example/tree/master/priv/static
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Overview
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+visual map query to look for rides related to an incident
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Context
 
-## Learn more
+Goals
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+User Stories
+
+Non Goals
+
+Milestones
+
+Current Solution
+
+Proposed Solution
+
+Alternative Solutions
+
+Risks + Costs
+
+Questions
+
+Project Management
