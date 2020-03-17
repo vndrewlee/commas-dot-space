@@ -5,23 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>smlcht</title>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn,"/js/app.js")%>"></script>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"></link>
     
     <%= csrf_meta_tag() %>
   </head>
   <body>
     <header>
-      <section class="container" class="navbar fixed-top navbar-light bg-light">
+    <div class="container">
+          <section class="container" class="navbar fixed-top navbar-light bg-light">
           <a href="<%= Routes.page_path(@conn, :index) %>">Smol Chat</a>
       </section>
     </header>
+
+    </div>
+
     <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
-    
+
   </body>
 </html>

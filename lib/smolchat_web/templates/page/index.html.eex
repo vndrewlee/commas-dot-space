@@ -1,36 +1,45 @@
-<div class="container">
 
-<div class="phx-hero">
-  <%# <h2>Lobby</h2>
-  <br/> %>
-  <p>Enter a roomname to get started</p>
+
+<div class="jumbotron">
+  <%# <div class="row"> %>
+    <h2>Enter a roomname to get started</h2>
+  <%# </div> %>
+  
 </div>
 
-<!-- The list of messages will appear here: -->
 <div class="row">
-  <div class="col-xs-12">
-    <input
-      type="text"
-      id="roomForm"
-      class="form-control"
-      placeholder="Room Name"
-      autofocus
-    />
-  </div>
-  <div class="col-xs-9">
-    <button type="button" onclick="goToRoom()">Go</button>
-  </div>
-</div>
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input
+          type="text"
+          id="roomForm"
+          class="form-control"
+          placeholder="Room Name"
+          autofocus
+        >
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" onclick="goToRoom()">join!</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
 
-<div class="footer"></div>
+
+
+
+
 
 <script>
   let roomForm = document.getElementById("roomForm");
 
   function goToRoom() {
     let roomName = roomForm.value;
-    let roomURL = "/rooms/" + roomName;
-    window.location.href = roomURL;
+
+    if (roomName.length > 0) {
+      let roomURL = "/rooms/" + roomName;
+      window.location.href = roomURL;
+    }
+
   }
 
   // "listen" for the [Enter] keypress event to send a message:
@@ -40,5 +49,4 @@
     }
   });
 </script>
-
-</div>
+<%# </div> %>

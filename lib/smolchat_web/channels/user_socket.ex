@@ -7,7 +7,6 @@ defmodule SmolchatWeb.UserSocket do
     {:ok, assign(socket, user_id: nil, color_id: :rand.uniform())}
   end
 
-  def id(_socket), do: nil # Returning `nil` makes this socket anonymous. 
+  def id(socket), do: "users_socket:#{socket.assigns.user_id}"
   
 end
-

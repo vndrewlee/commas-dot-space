@@ -1,8 +1,10 @@
-// import css for webpack
-import css from "../css/app.css";
-
 import "phoenix_html";
 import { Socket, Presence } from "phoenix";
+
+// import css for webpack
+import css from "../css/app.css";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { interpolateTurbo } from "d3-scale-chromatic";
 import { color } from "d3-color";
@@ -38,10 +40,20 @@ channel.on("shout", function(payload) {
   msg.style.backgroundColor = c;
   msg.innerHTML = payload.message;
   msg.style.top = payload.color_id * 5 + 45 + "%";
+
+  let tick = document.createElement("div");
+  tick.classList.add("square");
+  c.opacity = 0.1;
+  tick.style.backgroundColor = c;
+  // tick.style.top = payload.color_id * 5 + 45 + "%";
+
   messageCanvas.appendChild(msg);
+  messageCanvas.appendChild(tick);
 
   msg.onanimationend = () => msg.remove();
+  tick.onanimationend = () => tick.remove();
   msg.classList.add("flyer");
+  tick.classList.add("flyerslow");
 });
 
 presence.onSync(() => {

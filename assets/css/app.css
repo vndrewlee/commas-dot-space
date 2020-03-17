@@ -1,6 +1,50 @@
-/* This file is for your main application css. */
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-top: 50px;
+  margin-bottom: 60px;
+}
 
-@import "./phoenix.css";
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  padding-top: 1em;
+  background-color: #f5f5f5;
+}
+
+#messages {
+  margin-top: 0px;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 40px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+#footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+/* my stuff */
 
 input,
 select,
@@ -25,7 +69,11 @@ textarea {
   height: 50vh;
   position: relative;
 }
-
+.flyerslow {
+  animation: flyby 60s;
+  animation-timing-function: linear;
+  position: absolute;
+}
 .flyer {
   animation: flyby 8s;
   animation-timing-function: linear;
@@ -39,4 +87,12 @@ textarea {
   to {
     left: -5%;
   }
+}
+
+.square {
+  height: 100%;
+  position: absolute;
+  width: 10px;
+  left: 200%;
+  /* top: 50%; */
 }
