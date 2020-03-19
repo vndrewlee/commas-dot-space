@@ -1,33 +1,44 @@
+<div class="container">
+  <div class="col-md-12">
+    <div class="jumbotron">
+      <h1 class="display-4">commas . space</h1>
+      <p class="lead">
+        realtime text conversation
+      </p>
+      <form class="form-inline my-2 my-lg-0">
+        <div class="input-group">
+          <input
+            type="text"
+            id="roomForm"
+            class="form-control"
+            placeholder="Room Name"
+            autofocus
+            aria-label="Room name"
+            aria-describedby="button-addon2"
+            onsubmit="goToRoom()"
+          />
 
-
-<div class="jumbotron">
-  <%# <div class="row"> %>
-    <h2>Enter a roomname to get started</h2>
-  <%# </div> %>
-  
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              onclick="goToRoom()"
+            >
+              dial in
+            </button>
+          </div>
+        </div>
+      </form>
+      <hr class="my-4" />
+      <p class="text-muted">
+        no 3rd party analytics, no message logging
+      </p>
+      <p class="text-muted">
+        hello@commas.space
+      </p>
+    </div>
+  </div>
 </div>
-
-<div class="row">
-    <div class="col-lg-6">
-      <div class="input-group">
-        <input
-          type="text"
-          id="roomForm"
-          class="form-control"
-          placeholder="Room Name"
-          autofocus
-        >
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button" onclick="goToRoom()">join!</button>
-        </span>
-      </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-  </div><!-- /.row -->
-
-
-
-
-
 
 <script>
   let roomForm = document.getElementById("roomForm");
@@ -39,14 +50,13 @@
       let roomURL = "/rooms/" + roomName;
       window.location.href = roomURL;
     }
-
   }
 
   // "listen" for the [Enter] keypress event to send a message:
   roomForm.addEventListener("keypress", function(event) {
     if (event.keyCode == 13 && roomForm.value.length > 0) {
+      event.preventDefault();
       goToRoom();
     }
   });
 </script>
-<%# </div> %>
