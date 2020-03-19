@@ -11,18 +11,10 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <header>
-    <div class="container">
-          <section class="container" class="navbar fixed-top navbar-light bg-light">
-          <a href="<%= Routes.page_path(@conn, :index) %>">Smol Chat</a>
-      </section>
-    </header>
 
-    </div>
 
-    <main role="main" class="container">
       <%= render @view_module, @view_template, assigns %>
-    </main>
+
 
   </body>
 </html>
