@@ -1,8 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-  <a class="navbar-brand" href="<%= Routes.page_path(@conn, :index) %>">commas.space</a>
+  <a class="navbar-brand" href="<%= Routes.page_path(@conn, :index) %>"
+    >commas.space</a
+  >
   <a class="navbar-brand">/rooms/<%= @id %></a>
 </nav>
-
 
 <!-- The list of messages will appear here: -->
 <div class="container pt-1">
@@ -11,34 +12,31 @@
       <div id="msg-canvas" class="border"></div>
     </div>
     <div class="col-md-3 d-none d-md-block">
-    <h3>Users</h3>
-    <ul id="presence-panel"></ul>
+      <h3>Users</h3>
+      <ul id="presence-panel"></ul>
     </div>
   </div>
 
   <div class="footer">
-    <br/>
-      <div class="row">
-        <div class="col-md-3">
-          <input
-            type="text"
-            id="name"
-            class="form-control"
-            placeholder="Your Name"
-            autofocus
-          />
-        </div>
-        <div class="col-md-9">
-          <input
-            type="text"
-            id="msg"
-            class="form-control"
-            placeholder="Your Message"
-          />
-        </div>
+    <br />
+    <div class="row">
+      <div class="col-md-3">
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          placeholder="Your Name"
+          autofocus
+        />
       </div>
+      <div class="col-md-9">
+        <input
+          type="text"
+          id="msg"
+          class="form-control"
+          placeholder="Your Message"
+        />
+      </div>
+    </div>
   </div>
 </div>
-
-
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
