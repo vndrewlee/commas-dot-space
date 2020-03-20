@@ -91,7 +91,7 @@ textarea {
 .square {
   height: 100%;
   position: absolute;
-  width: 10px;
+  width: 2%;
   left: 200%;
   /* top: 50%; */
 }

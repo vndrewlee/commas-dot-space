@@ -39,13 +39,16 @@ channel.on("shout", function(payload) {
   c.opacity = 0.3;
   msg.style.backgroundColor = c;
   msg.innerHTML = payload.message;
-  msg.style.top = payload.color_id * 5 + 45 + "%";
+  msg.style.top = payload.color_id * 5 + 45 + "%"; // jitter
 
   let tick = document.createElement("div");
   tick.classList.add("square");
   c.opacity = 0.1;
-  tick.style.backgroundColor = c;
-  // tick.style.top = payload.color_id * 5 + 45 + "%";
+  let startColor = c.formatRgb();
+  c.opacity = 0;
+  let endColor = c.formatRgb();
+  tick.style.backgroundImage =
+    "linear-gradient(to right, " + startColor + ", " + endColor + ")";
 
   messageCanvas.appendChild(msg);
   messageCanvas.appendChild(tick);
