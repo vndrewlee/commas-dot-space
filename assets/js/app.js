@@ -14,6 +14,7 @@ var name = document.getElementById("name"); // name of message sender
 var msg = document.getElementById("msg"); // message input field
 var nameField = document.getElementById("name"); // message input field
 let presencePanel = document.getElementById("presence-panel");
+var flybyDurationSeconds = 16 * 0.375;
 
 let socket = new Socket("/socket");
 
@@ -56,10 +57,12 @@ channel.on("shout", function(payload) {
   msg.onanimationend = () => msg.remove();
   tick.onanimationend = () => tick.remove();
   msg.classList.add("flyer");
+  msg.style.animationDuration = flybyDurationSeconds + "s";
   tick.classList.add("flyerslow");
 });
 
 presence.onSync(() => {
+  // TODO vary jitter by presence list length
   let response = "";
 
   presence.list((id, { metas }) => {
