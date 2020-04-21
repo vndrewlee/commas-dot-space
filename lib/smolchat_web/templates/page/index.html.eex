@@ -1,62 +1,31 @@
-<div class="container">
-  <div class="col-md-12">
-    <div class="jumbotron">
-      <h1 class="display-4">commas . space</h1>
-      <p class="lead">
-        realtime text conversation
-      </p>
-      <form class="form-inline my-2 my-lg-0">
-        <div class="input-group">
-          <input
-            type="text"
-            id="roomForm"
-            class="form-control"
-            placeholder="Room Name"
-            autofocus
-            aria-label="Room name"
-            aria-describedby="button-addon2"
-            onsubmit="goToRoom()"
-          />
+<div>
+  <span style="float: left;"
+    ><a class="navbar-brand" href="<%= Routes.page_path(@conn, :index) %>"
+      >commas.space</a
+    ></span
+  >
+  <span style="float: right;"><a href="/about">about</a></span>
+</div>
+<br />
+<hr />
 
-          <div class="input-group-append">
-            <button
-              class="btn btn-outline-primary"
-              type="button"
-              onclick="goToRoom()"
-            >
-              dial in
-            </button>
-          </div>
-        </div>
-      </form>
-      <hr class="my-4" />
-      <p class="text-muted">
-        no 3rd party analytics, no message logging
-      </p>
-      <p class="text-muted">
-        hello@commas.space
-      </p>
-    </div>
-  </div>
+<svg
+  id="messagedisplay"
+  viewBox="0 0 100 100"
+  xmlns="http://www.w3.org/2000/svg"
+  preserveaspectratio="xMinYMid meet"
+  style="border: 1px solid black; box-shadow: 2px 2px darkgrey; margin: auto;"
+></svg>
+
+<div class="footer">
+  <input
+    type="text"
+    id="msg"
+    placeholder="Your Message"
+    autofocus
+  />
 </div>
 
-<script>
-  let roomForm = document.getElementById("roomForm");
-
-  function goToRoom() {
-    let roomName = roomForm.value;
-
-    if (roomName.length > 0) {
-      let roomURL = "/rooms/" + roomName;
-      window.location.href = roomURL;
-    }
-  }
-
-  // "listen" for the [Enter] keypress event to send a message:
-  roomForm.addEventListener("keypress", function(event) {
-    if (event.keyCode == 13 && roomForm.value.length > 0) {
-      event.preventDefault();
-      goToRoom();
-    }
-  });
-</script>
+  <footer>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn,"/js/app.js")%>"></script>
+  </footer>

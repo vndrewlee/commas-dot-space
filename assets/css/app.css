@@ -1,55 +1,49 @@
-body > .container {
-  padding: 40px 15px 0;
+#messagedisplay {
+  background-color: grey;
+  width: 100%;
+  max-width: 600px;
 }
 
-input,
-select,
-textarea {
+#msg {
+  background-color: grey;
+}
+
+hr {
+  height: 1px;
+  border-width: 0;
+  background-color: black;
+}
+
+a:any-link {
+  text-decoration: none;
+}
+
+input {
   font-size: 16px;
 }
 
-.message {
-  position: absolute;
-  font-size: 2rem;
-  white-space: nowrap;
-  left: 200%;
-  top: 50%;
+body {
+  background-color: lightgrey;
   font-family: "Lucida Console", Monaco, monospace;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
-#msg-canvas {
-  overflow-y: scroll;
-  list-style: none;
-  overflow: hidden;
-  height: 25vh;
-  position: relative;
+#cursor {
+  animation: blinkingCursor 1s infinite;
 }
 
-.flyerslow {
-  animation: flyby 12s;
-  animation-timing-function: linear;
-  position: absolute;
-}
-
-.flyer {
-  animation: flyby;
-  animation-timing-function: cubic-bezier(0.05, 0, 0, 0);
-  position: absolute;
-}
-
-@keyframes flyby {
-  from {
-    left: 100%;
+@keyframes blinkingCursor {
+  0% {
+    opacity: 0.2;
   }
-  to {
-    left: -5%;
+  50% {
+    opacity: 0.8;
   }
-}
-
-.square {
-  height: 100%;
-  position: absolute;
-  width: 2%;
-  left: 200%;
-  /* top: 50%; */
+  100% {
+    opacity: 0.2;
+  }
 }
