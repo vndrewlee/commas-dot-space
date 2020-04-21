@@ -13,7 +13,7 @@ defmodule SmolchatWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/rooms/:id", PageController, :show
+    get "/about/", PageController, :about
   end
 
 end
