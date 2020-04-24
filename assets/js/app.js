@@ -16,6 +16,7 @@ channel.join();
 channel.on("shout", (payload) => {
   messageDisplay
     .append("text")
+    .classed("message", true)
     .text(payload.message)
     .attr("x", 100)
     .attr("y", payload.color_id * 90)

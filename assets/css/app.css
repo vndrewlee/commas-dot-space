@@ -18,6 +18,15 @@ a:any-link {
   text-decoration: none;
 }
 
+.message {
+  stroke: black;
+  stroke-width: 0.05;
+  text-anchor: start;
+  font-size: 0.5em;
+  dominant-baseline: middle;
+  font-family: Lucida Console, Monaco, monospace;
+}
+
 #messagedisplay {
   background-color: white;
   width: 100%;
