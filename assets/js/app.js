@@ -1,68 +1,65 @@
 import "phoenix_html";
 import { Socket, Presence } from "phoenix";
-
 import css from "../css/app.css"; //import for webpack
-
 import * as d3 from "d3";
 
 const messageDisplay = d3.select("#messagedisplay"); // list of messages.
-const msg = document.getElementById("msg"); // message input field
+messageDisplay.on("click", () => document.getElementById("input").focus());
+const input = document.getElementById("input"); // message input field
 
 let socket = new Socket("/socket");
-
 socket.connect();
-
 let channelName = "room:subtopic";
 let channel = socket.channel(channelName);
-
 channel.join();
 
-let presence = new Presence(channel);
-
 channel.on("shout", (payload) => {
-  const maxCount = 10; //todo need to update
-
   messageDisplay
     .append("text")
     .text(payload.message)
     .attr("x", 100)
-    .attr("y", payload.color_id * 80 + 10)
+    .attr("y", payload.color_id * 90)
     .attr("fill", d3.interpolateTurbo(payload.color_id))
     .attr("opacity", d3.easeQuadInOut(payload.count / payload.max_count))
     .attr("stroke", "black")
-    .attr("stroke-width", 0.1)
+    .attr("stroke-width", 0.05)
     .attr("text-anchor", "start")
-    .attr("font-size", ".5em")
-    .attr("dominant-baseline", "middle")
+    .attr("font-size", "0.5em")
+    .attr("dominant-baseline", "hanging")
     .attr("font-family", "Lucida Console, Monaco, monospace")
     .transition()
-    .duration(12000)
+    .duration(12000 * 1.1)
     .ease(d3.easeLinear)
     .attr("x", -10)
     .remove();
 });
 
 channel.on("color", (payload) => {
-  messageDisplay
-    .insert("text")
-    .text("█")
-    .attr("x", 95)
-    .attr("id", "cursor")
-    .attr("y", payload.id * 80 + 10)
-    .attr("fill", d3.interpolateTurbo(payload.id))
-    .attr("text-anchor", "start")
-    .attr("font-size", ".5em")
-    .attr("dominant-baseline", "middle")
-    .attr("font-family", "Lucida Console, Monaco, monospace");
+  d3.select("#msgobj")
+    .attr("y", payload.id * 90)
+    .attr("x", 0);
+
+  d3.select("#input").style("color", d3.interpolateTurbo(payload.id));
+
+  document.getElementById("input").focus();
 });
 
-msg.addEventListener("keydown", shoutMessage);
+input.addEventListener("input", (event) => {
+  if (
+    event.isComposing ||
+    event.inputType == "insertFromComposition" ||
+    event.inputType == "insertCompositionText" ||
+    event.inputType == "deleteCompositionText"
+  ) {
+    // pass
+  } else {
+    shoutMessage();
+  }
+});
+
+input.addEventListener("compositionend", shoutMessage);
 
 function shoutMessage() {
-  if (msg.value.length > 0) {
-    channel.push("shout", { message: msg.value });
-    msg.value = "";
-  } else {
-    setTimeout(shoutMessage, 1);
-  }
+  channel.push("shout", { message: input.value });
+  input.value = "";
 }
