@@ -37,6 +37,10 @@ a:any-link {
   margin: auto;
 }
 
+#msgobj {
+  transform: translateY(-0.5em);
+}
+
 #foreigndiv {
   height: 100%;
 }

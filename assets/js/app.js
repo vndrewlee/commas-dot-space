@@ -19,15 +19,9 @@ channel.on("shout", (payload) => {
     .classed("message", true)
     .text(payload.message)
     .attr("x", 100)
-    .attr("y", payload.color_id * 90)
+    .attr("y", payload.color_id * 80 + 10)
     .attr("fill", d3.interpolateTurbo(payload.color_id))
     .attr("opacity", d3.easeQuadInOut(payload.count / payload.max_count))
-    .attr("stroke", "black")
-    .attr("stroke-width", 0.05)
-    .attr("text-anchor", "start")
-    .attr("font-size", "0.5em")
-    .attr("dominant-baseline", "hanging")
-    .attr("font-family", "Lucida Console, Monaco, monospace")
     .transition()
     .duration(12000 * 1.1)
     .ease(d3.easeLinear)
@@ -37,10 +31,12 @@ channel.on("shout", (payload) => {
 
 channel.on("color", (payload) => {
   d3.select("#msgobj")
-    .attr("y", payload.id * 90)
+    .attr("y", payload.id * 80 + 10)
     .attr("x", 0);
 
-  d3.select("#input").style("color", d3.interpolateTurbo(payload.id));
+  d3.select("#input")
+    .style("color", d3.interpolateTurbo(payload.id))
+    .style("caret-color", d3.interpolateTurbo(payload.id));
 
   document.getElementById("input").focus();
 });
