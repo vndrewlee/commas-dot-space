@@ -15,9 +15,9 @@
   xmlns="http://www.w3.org/2000/svg"
   preserveaspectratio="xMinYMid meet"
 >
-  <foreignObject id="msgobj" x="0" y="0" width="100" height="0.5em" style="display: block;">
+  <foreignObject id="msgobj" x="0" y="100" width="100" height="0.5em" style="display: block;">
         <div id="foreigndiv" xmlns="http://www.w3.org/1999/xhtml">
-          <input id="input"/>
+          <input id="input" autofocus />
         </div>
   </foreignObject>
 </svg>
