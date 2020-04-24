@@ -12,9 +12,12 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_in("shout", payload, socket) do
+    max_count = 3
+
     hydrated_payload =
       Map.put(payload, :color_id, socket.assigns.color_id)
-      |> Map.put(:count, 10)
+      |> Map.put(:max_count, max_count)
+      |> Map.put(:count, max_count)
       |> Map.replace("message", String.slice(payload["message"], 0..0))
 
     broadcast(socket, "shout", hydrated_payload)

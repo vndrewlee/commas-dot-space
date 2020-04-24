@@ -28,7 +28,7 @@ channel.on("shout", (payload) => {
     .attr("x", 100)
     .attr("y", payload.color_id * 80 + 10)
     .attr("fill", d3.interpolateTurbo(payload.color_id))
-    .attr("opacity", d3.easeQuadInOut(payload.count / maxCount))
+    .attr("opacity", d3.easeQuadInOut(payload.count / payload.max_count))
     .attr("stroke", "black")
     .attr("stroke-width", 0.1)
     .attr("text-anchor", "start")
