@@ -1,11 +1,11 @@
-#messagedisplay {
-  background-color: grey;
-  width: 100%;
-  max-width: 600px;
-}
-
-#msg {
-  background-color: grey;
+body {
+  background-color: lightgrey;
+  font-family: "Lucida Console", Monaco, monospace;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 hr {
@@ -18,32 +18,25 @@ a:any-link {
   text-decoration: none;
 }
 
-input {
-  font-size: 16px;
+#messagedisplay {
+  background-color: white;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid black;
+  box-shadow: 2px 2px darkgrey;
+  display: block;
+  margin: auto;
 }
 
-body {
-  background-color: lightgrey;
+#input {
+  padding: 0;
+  border: 0;
+  outline-style: none;
+  margin: 0;
+  font-size: 0.5em;
+  width: 100%;
+  display: block;
+  text-align: right;
+  background: transparent;
   font-family: "Lucida Console", Monaco, monospace;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
-#cursor {
-  animation: blinkingCursor 1s infinite;
-}
-
-@keyframes blinkingCursor {
-  0% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.2;
-  }
 }
