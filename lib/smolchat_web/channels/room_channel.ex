@@ -12,7 +12,7 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_in("shout", payload, socket) do
-    max_count = 3
+    max_count = 5
 
     hydrated_payload =
       Map.put(payload, :color_id, socket.assigns.color_id)
@@ -32,8 +32,10 @@ defmodule SmolchatWeb.RoomChannel do
       presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
       no_connections = presence_list == nil
       presence_count = if no_connections, do: 0, else: length presence_list
+      additional_fade = round(presence_count/10)
+      capped_additional_fade = if additional_fade>3, do: 3, else: additional_fade
 
-      updated_payload = Map.replace(payload, :count, payload.count-presence_count)
+      updated_payload = Map.replace(payload, :count, payload.count-(1+capped_fade))
 
       :timer.apply_after(
         12000,
