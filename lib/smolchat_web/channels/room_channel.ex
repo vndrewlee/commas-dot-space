@@ -20,8 +20,6 @@ defmodule SmolchatWeb.RoomChannel do
       |> Map.put(:count, max_count)
       |> Map.replace("message", String.slice(payload["message"], 0..0))
 
-    broadcast(socket, "shout", hydrated_payload)
-
     loop(socket, hydrated_payload)
 
     {:noreply, socket}
