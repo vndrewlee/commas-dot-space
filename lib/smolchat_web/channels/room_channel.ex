@@ -35,7 +35,7 @@ defmodule SmolchatWeb.RoomChannel do
       additional_fade = round(presence_count/10)
       capped_additional_fade = if additional_fade>3, do: 3, else: additional_fade
 
-      updated_payload = Map.replace(payload, :count, payload.count-(1+capped_fade))
+      updated_payload = Map.replace(payload, :count, payload.count-(1+capped_additional_fade))
 
       :timer.apply_after(
         12000,
