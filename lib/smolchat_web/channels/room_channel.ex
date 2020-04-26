@@ -12,12 +12,9 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_in("shout", payload, socket) do
-    max_count = 5
-
     hydrated_payload =
       Map.put(payload, :color_id, socket.assigns.color_id)
-      |> Map.put(:max_count, max_count)
-      |> Map.put(:count, max_count)
+      |> Map.put(:lifespan, 1.0)
       |> Map.put("message", String.slice(payload["message"], 0..0))
 
     loop(socket, hydrated_payload)
@@ -26,16 +23,20 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def loop(socket, payload) do
-    if payload.count > 0 do
+    if payload.lifespan > 0 do
       broadcast(socket, "shout", payload)
+
+      base_fade = 0.20
 
       presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
       no_connections = presence_list == nil
       presence_count = if no_connections, do: 0, else: length(presence_list)
-      additional_fade = round(presence_count / 10)
-      capped_additional_fade = if additional_fade > 3, do: 3, else: additional_fade
+      additional_fade = presence_count * 0.05
 
-      updated_payload = Map.put(payload, :count, payload.count - capped_additional_fade)
+      capped_fade =
+        if base_fade + additional_fade > 1, do: 0.99, else: base_fade + additional_fade
+
+      updated_payload = Map.put(payload, :lifespan, payload.lifespan - capped_fade)
 
       :timer.apply_after(
         12000,
