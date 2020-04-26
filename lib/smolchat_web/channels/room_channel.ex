@@ -18,7 +18,7 @@ defmodule SmolchatWeb.RoomChannel do
       Map.put(payload, :color_id, socket.assigns.color_id)
       |> Map.put(:max_count, max_count)
       |> Map.put(:count, max_count)
-      |> Map.replace("message", String.slice(payload["message"], 0..0))
+      |> Map.put("message", String.slice(payload["message"], 0..0))
 
     loop(socket, hydrated_payload)
 
@@ -49,7 +49,6 @@ defmodule SmolchatWeb.RoomChannel do
   end
 
   def handle_info(:after_join, socket) do
-
     push(socket, "color", %{:id => socket.assigns.color_id})
 
     push(socket, "presence_state", Presence.list(socket))
