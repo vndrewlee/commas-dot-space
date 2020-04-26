@@ -21,7 +21,7 @@ channel.on("shout", (payload) => {
     .attr("x", 100)
     .attr("y", payload.color_id * 80 + 10)
     .attr("fill", d3.interpolateTurbo(payload.color_id))
-    .attr("opacity", d3.easeQuadInOut(payload.lifespan))
+    .attr("opacity", d3.easeExpOut(payload.lifespan))
     .transition()
     .duration(12000 * 1.1)
     .ease(d3.easeLinear)
