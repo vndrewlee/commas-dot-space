@@ -34,3 +34,4 @@ npm-debug.log
 /priv/static/
 .vscode/settings.json
 .DS_Store
+.elixir_ls/
