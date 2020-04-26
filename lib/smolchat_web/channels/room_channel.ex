@@ -27,15 +27,15 @@ defmodule SmolchatWeb.RoomChannel do
 
   def loop(socket, payload) do
     if payload.count > 0 do
-      broadcast socket, "shout", payload
+      broadcast(socket, "shout", payload)
 
       presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
       no_connections = presence_list == nil
-      presence_count = if no_connections, do: 0, else: length presence_list
-      additional_fade = round(presence_count/10)
-      capped_additional_fade = if additional_fade>3, do: 3, else: additional_fade
+      presence_count = if no_connections, do: 0, else: length(presence_list)
+      additional_fade = round(presence_count / 10)
+      capped_additional_fade = if additional_fade > 3, do: 3, else: additional_fade
 
-      updated_payload = Map.replace(payload, :count, payload.count-(1+capped_additional_fade))
+      updated_payload = Map.put(payload, :count, payload.count - capped_additional_fade)
 
       :timer.apply_after(
         12000,

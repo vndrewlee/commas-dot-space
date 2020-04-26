@@ -15,5 +15,4 @@ defmodule SmolchatWeb.Router do
     get "/", PageController, :index
     get "/about/", PageController, :about
   end
-
 end

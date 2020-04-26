@@ -68,6 +68,7 @@ defmodule SmolchatWeb.Presence do
   information, while maintaining the required `:metas` field from the
   original presence data.
   """
-  use Phoenix.Presence, otp_app: :smolchat,
-                        pubsub_server: Smolchat.PubSub
+  use Phoenix.Presence,
+    otp_app: :smolchat,
+    pubsub_server: Smolchat.PubSub
 end

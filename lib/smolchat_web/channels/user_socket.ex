@@ -8,5 +8,4 @@ defmodule SmolchatWeb.UserSocket do
   end
 
   def id(socket), do: "users_socket:#{socket.assigns.user_id}"
-  
 end
