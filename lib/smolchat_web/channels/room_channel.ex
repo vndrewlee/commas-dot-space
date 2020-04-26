@@ -26,17 +26,20 @@ defmodule SmolchatWeb.RoomChannel do
     if payload.lifespan > 0 do
       broadcast(socket, "shout", payload)
 
-      base_fade = 0.20
-
       presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
       no_connections = presence_list == nil
-      presence_count = if no_connections, do: 0, else: length(presence_list)
-      additional_fade = presence_count * 0.05
 
-      capped_fade =
-        if base_fade + additional_fade > 1, do: 0.99, else: base_fade + additional_fade
+      fade =
+        if no_connections do
+          0
+        else
+          presence_count = length(presence_list)
+          raw_fade = presence_count * 0.05
+          capped_fade = if raw_fade > 1, do: 0.99, else: raw_fade
+          capped_fade
+        end
 
-      updated_payload = Map.put(payload, :lifespan, payload.lifespan - capped_fade)
+      updated_payload = Map.put(payload, :lifespan, payload.lifespan - fade)
 
       :timer.apply_after(
         12000,
