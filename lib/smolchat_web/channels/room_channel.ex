@@ -18,35 +18,39 @@ defmodule SmolchatWeb.RoomChannel do
       |> Map.put("message", String.slice(payload["message"], 0..0))
 
     loop(socket, hydrated_payload)
-
     {:noreply, socket}
   end
 
   def loop(socket, payload) do
-    if payload.lifespan > 0 do
-      broadcast(socket, "shout", payload)
+    presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
+    no_connections = presence_list == nil
 
-      presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
-      no_connections = presence_list == nil
+    cond do
+      payload.lifespan < 0.0 ->
+        :ok
 
-      fade =
-        if no_connections do
-          0
-        else
-          presence_count = length(presence_list)
-          raw_fade = presence_count * 0.05
-          capped_fade = if raw_fade > 1, do: 0.99, else: raw_fade
-          capped_fade
-        end
+      no_connections ->
+        :timer.apply_after(
+          12000,
+          SmolchatWeb.RoomChannel,
+          :loop,
+          [socket, payload]
+        )
 
-      updated_payload = Map.put(payload, :lifespan, payload.lifespan - fade)
+      true ->
+        broadcast(socket, "shout", payload)
 
-      :timer.apply_after(
-        12000,
-        SmolchatWeb.RoomChannel,
-        :loop,
-        [socket, updated_payload]
-      )
+        presence_count = length(presence_list)
+        raw_fade = presence_count * 0.05
+        capped_fade = if raw_fade > 1, do: 0.99, else: raw_fade
+        updated_payload = Map.put(payload, :lifespan, payload.lifespan - capped_fade)
+
+        :timer.apply_after(
+          12000,
+          SmolchatWeb.RoomChannel,
+          :loop,
+          [socket, updated_payload]
+        )
     end
 
     {:noreply, socket}
