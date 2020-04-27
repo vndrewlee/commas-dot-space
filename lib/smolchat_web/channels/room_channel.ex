@@ -41,8 +41,8 @@ defmodule SmolchatWeb.RoomChannel do
         broadcast(socket, "shout", payload)
 
         presence_count = length(presence_list)
-        raw_fade = presence_count * 0.05
-        capped_fade = if raw_fade > 1, do: 0.99, else: raw_fade
+        raw_fade = presence_count * 0.10
+        capped_fade = if raw_fade > 1, do: 0.80, else: raw_fade
         updated_payload = Map.put(payload, :lifespan, payload.lifespan - capped_fade)
 
         :timer.apply_after(
