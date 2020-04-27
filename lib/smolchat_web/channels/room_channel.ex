@@ -23,10 +23,11 @@ defmodule SmolchatWeb.RoomChannel do
 
   def loop(socket, payload) do
     presence_list = SmolchatWeb.Presence.list("room:subtopic")[""][:metas]
+    is_expired = payload.lifespan < 0.0
     no_connections = presence_list == nil
 
     cond do
-      payload.lifespan < 0.0 ->
+      is_expired ->
         :ok
 
       no_connections ->
@@ -42,7 +43,14 @@ defmodule SmolchatWeb.RoomChannel do
 
         presence_count = length(presence_list)
         raw_fade = presence_count * 0.10
-        capped_fade = if raw_fade > 1, do: 0.80, else: raw_fade
+
+        capped_fade =
+          if raw_fade > 1 do
+            0.80
+          else
+            raw_fade
+          end
+
         updated_payload = Map.put(payload, :lifespan, payload.lifespan - capped_fade)
 
         :timer.apply_after(
