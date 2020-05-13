@@ -36,7 +36,7 @@ defmodule SmolchatWeb.RoomChannel do
       broadcast(socket, "shout", payload)
 
       presence_count = length(presence_list)
-      raw_fade = presence_count * 0.10
+      raw_fade = presence_count * 0.05
 
       capped_fade =
         if raw_fade > 1 do
